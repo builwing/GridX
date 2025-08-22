@@ -18,23 +18,26 @@ if [[ ! -f "README.md" ]] || [[ ! -d "scripts" ]]; then
     exit 1
 fi
 
-# 利用可能なエージェントリスト
-declare -A AGENTS=(
-    ["api"]="Go-Zero APIエージェント - REST/RPC エンドポイント実装"
-    ["docs"]="ドキュメント管理エージェント - README、API仕様書作成"
-    ["expo"]="Expo/React Nativeエージェント - モバイルアプリ開発"
-    ["infra"]="インフラエージェント - Docker、Kubernetes、CI/CD"
-    ["logic"]="ビジネスロジックエージェント - ドメイン駆動設計"
-    ["next"]="Next.jsエージェント - SSR/SSG/ISR実装"
-    ["qa"]="品質保証エージェント - テスト自動化"
-    ["requirements"]="要件定義エージェント - プロジェクト要件管理"
-    ["security"]="セキュリティエージェント - 認証認可、脆弱性対策"
-    ["setup"]="環境構築エージェント - プロジェクト初期化"
-    ["uiux"]="UI/UXエージェント - コンポーネント設計、スタイリング"
-)
-
 # エージェントの順序を定義（表示順）
 AGENT_ORDER=("api" "docs" "expo" "infra" "logic" "next" "qa" "requirements" "security" "setup" "uiux")
+
+# エージェントの説明を関数で取得
+get_agent_description() {
+    case "$1" in
+        "api") echo "Go-Zero APIエージェント - REST/RPC エンドポイント実装" ;;
+        "docs") echo "ドキュメント管理エージェント - README、API仕様書作成" ;;
+        "expo") echo "Expo/React Nativeエージェント - モバイルアプリ開発" ;;
+        "infra") echo "インフラエージェント - Docker、Kubernetes、CI/CD" ;;
+        "logic") echo "ビジネスロジックエージェント - ドメイン駆動設計" ;;
+        "next") echo "Next.jsエージェント - SSR/SSG/ISR実装" ;;
+        "qa") echo "品質保証エージェント - テスト自動化" ;;
+        "requirements") echo "要件定義エージェント - プロジェクト要件管理" ;;
+        "security") echo "セキュリティエージェント - 認証認可、脆弱性対策" ;;
+        "setup") echo "環境構築エージェント - プロジェクト初期化" ;;
+        "uiux") echo "UI/UXエージェント - コンポーネント設計、スタイリング" ;;
+        *) echo "不明なエージェント" ;;
+    esac
+}
 
 echo -e "${CYAN}╔════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${CYAN}║           SubAgent 選択的セットアップツール               ║${NC}"
@@ -52,7 +55,7 @@ done
 if [[ ${#existing_agents[@]} -gt 0 ]]; then
     echo -e "${YELLOW}📁 既存のエージェント:${NC}"
     for agent in "${existing_agents[@]}"; do
-        echo -e "   ${GREEN}✓${NC} $agent - ${AGENTS[$agent]}"
+        echo -e "   ${GREEN}✓${NC} $agent - $(get_agent_description "$agent")"
     done
     echo
 fi
@@ -67,7 +70,7 @@ for agent in "${AGENT_ORDER[@]}"; do
     else
         echo -e "  ${CYAN}[$index]${NC} $agent"
     fi
-    echo -e "      ${AGENTS[$agent]}"
+    echo -e "      $(get_agent_description "$agent")"
     ((index++))
 done
 
@@ -127,7 +130,7 @@ echo
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${YELLOW}🎯 以下のエージェントをセットアップします:${NC}"
 for agent in "${selected_agents[@]}"; do
-    echo -e "   ${GREEN}→${NC} $agent - ${AGENTS[$agent]}"
+    echo -e "   ${GREEN}→${NC} $agent - $(get_agent_description "$agent")"
 done
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo
@@ -141,7 +144,7 @@ fi
 # セットアップ関数
 setup_agent() {
     local agent="$1"
-    local description="${AGENTS[$agent]}"
+    local description="$(get_agent_description "$agent")"
     
     echo -e "${CYAN}📦 $agent エージェントをセットアップ中...${NC}"
     
