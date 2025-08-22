@@ -46,11 +46,11 @@ export default function RootLayout({
               </div>
             </div>
           </header>
-          
+
           <main className="flex-1 w-full">
             {children}
           </main>
-          
+
           <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white mt-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="text-center">
@@ -58,7 +58,7 @@ export default function RootLayout({
                   🎯 数独を楽しんでいただき、ありがとうございます！
                 </p>
                 <p className="text-sm text-gray-400">
-                  © 2024 数独ゲーム. みんなでパズルを楽しもう！ 🌟
+                  © 2025 WinRoadチーム. みんなでパズルを楽しもう！ 🌟
                 </p>
               </div>
             </div>
