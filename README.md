@@ -139,6 +139,86 @@ npm run test
 npm run build
 ```
 
+## 🚢 VPSデプロイ
+
+GridXをVPSサーバーにデプロイして、`https://gridx.winroad.biz` で公開する手順です。
+
+### デプロイ準備
+
+```bash
+# プロダクションビルド
+npm run build
+
+# デプロイスクリプトに実行権限付与
+chmod +x deploy_to_vps.sh
+```
+
+### 自動デプロイ
+
+```bash
+# スクリプトで自動デプロイ（推奨）
+./deploy_to_vps.sh
+```
+
+このスクリプトが自動的に以下を実行：
+- ✅ ビルドファイルの確認・生成
+- ✅ VPSサーバー（x8）への接続確認
+- ✅ rsyncでファイル転送（`/var/www/gridx`）
+- ✅ 本番用依存関係のインストール
+- ✅ PM2でアプリケーション再起動
+- ✅ Nginxの設定確認とリロード
+- ✅ ヘルスチェック実行
+
+### 手動デプロイ
+
+```bash
+# 1. ファイル転送
+rsync -avz --delete \
+  --exclude 'node_modules' \
+  --exclude '.git' \
+  ./ x8:/var/www/gridx/
+
+# 2. SSHでサーバーに接続
+ssh x8
+
+# 3. 依存関係インストールと再起動
+cd /var/www/gridx
+npm install --production
+pm2 restart gridx
+```
+
+### Nginx設定
+
+Nginxの設定サンプルは `gridx_web_nginx_sample_document.md` を参照してください。
+
+主な設定内容：
+- SSL/TLS証明書（Let's Encrypt）
+- HTTPからHTTPSへのリダイレクト
+- Next.jsアプリへのリバースプロキシ
+- 静的ファイルのキャッシュ最適化
+- セキュリティヘッダー
+
+### デプロイ関連ドキュメント
+
+- 📚 [VPSデプロイ手順書](./gridx_web_setup_document.md) - 詳細なセットアップガイド
+- 🔧 [Nginx設定サンプル](./gridx_web_nginx_sample_document.md) - 本番環境用Nginx設定
+- 🚀 [デプロイスクリプト](./deploy_to_vps.sh) - 自動デプロイツール
+
+### トラブルシューティング
+
+問題が発生した場合：
+
+```bash
+# PM2のログ確認
+ssh x8 "pm2 logs gridx --lines 50"
+
+# Nginxのエラーログ確認
+ssh x8 "sudo tail -f /var/log/nginx/error.log"
+
+# アプリケーションの再起動
+ssh x8 "pm2 restart gridx"
+```
+
 ## 🎯 今後の開発予定
 
 - [ ] オンライン対戦機能
