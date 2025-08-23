@@ -67,7 +67,7 @@
   
   .sudoku-grid {
     @apply max-w-xl mx-auto;
-    /* シンプルな9×9グリッド */
+    /* シンプルな9×9グリッド - 完全に隙間なし */
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
@@ -78,19 +78,24 @@
     border: 2px solid #374151;
     border-radius: 0;
     background-color: #ffffff;
+    box-sizing: border-box;
+    /* 境界線を内側に含める */
+    border-collapse: collapse;
   }
   
   /* 3×3ブロック境界線のみ太くする */
   /* 3列目と6列目の右境界を太くする */
   .sudoku-cell:nth-child(9n+3),
   .sudoku-cell:nth-child(9n+6) {
-    border-right: 2px solid #374151;
+    border-right-width: 2px;
+    border-right-color: #374151;
   }
   
   /* 27番目と54番目の後の行（3行目と6行目の最後）に太い下境界を追加 */
   .sudoku-cell:nth-child(n+19):nth-child(-n+27),
   .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
-    border-bottom: 2px solid #374151;
+    border-bottom-width: 2px;
+    border-bottom-color: #374151;
   }
   
   
@@ -102,20 +107,24 @@
     }
     
     .sudoku-cell {
-      @apply w-9 h-9 text-lg;
-      /* モバイルでは境界線を少し細くする */
-      border: 0.5px solid #d1d5db;
+      @apply w-full h-full text-lg;
+      /* モバイルでも隙間なし */
+      border: 0.5px solid #9ca3af;
+      margin: 0;
+      padding: 0;
     }
     
     /* モバイル用の3×3ブロック境界線 */
     .sudoku-cell:nth-child(9n+3),
     .sudoku-cell:nth-child(9n+6) {
-      border-right: 2px solid #374151;
+      border-right-width: 2px;
+      border-right-color: #374151;
     }
     
     .sudoku-cell:nth-child(n+19):nth-child(-n+27),
     .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
-      border-bottom: 2px solid #374151;
+      border-bottom-width: 2px;
+      border-bottom-color: #374151;
     }
     
     .number-button {
@@ -132,18 +141,22 @@
     
     .sudoku-cell {
       /* タブレット用の境界線調整 */
-      border: 0.8px solid #d1d5db;
+      border: 0.5px solid #9ca3af;
+      margin: 0;
+      padding: 0;
     }
     
     /* タブレット用の3×3ブロック境界線 */
     .sudoku-cell:nth-child(9n+3),
     .sudoku-cell:nth-child(9n+6) {
-      border-right: 2px solid #374151;
+      border-right-width: 2px;
+      border-right-color: #374151;
     }
     
     .sudoku-cell:nth-child(n+19):nth-child(-n+27),
     .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
-      border-bottom: 2px solid #374151;
+      border-bottom-width: 2px;
+      border-bottom-color: #374151;
     }
   }
   
