@@ -20,7 +20,7 @@
 
 @layer components {
   .sudoku-cell {
-    @apply w-full h-full bg-white text-center text-xl sm:text-2xl font-bold
+    @apply w-full h-full bg-white text-center text-3xl sm:text-4xl font-bold
            transition-all duration-200 ease-in-out
            focus:outline-none focus:ring-2 focus:ring-blue-400
            hover:bg-blue-50 select-none cursor-pointer;
@@ -30,6 +30,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 75px;
   }
   
   .sudoku-cell.selected {
@@ -40,7 +44,11 @@
   }
   
   .sudoku-cell.prefilled {
-    @apply bg-gray-100 text-black cursor-default font-black;
+    @apply bg-gray-200 text-black cursor-default font-black;
+  }
+  
+  .sudoku-cell.filled {
+    @apply bg-gray-100;
   }
   
   .sudoku-cell.error {
@@ -66,7 +74,7 @@
   }
   
   .sudoku-grid {
-    @apply max-w-xl mx-auto;
+    @apply max-w-4xl mx-auto;
     /* シンプルな9×9グリッド - 完全に隙間なし */
     display: grid;
     grid-template-columns: repeat(9, 1fr);
@@ -81,6 +89,8 @@
     box-sizing: border-box;
     /* 境界線を内側に含める */
     border-collapse: collapse;
+    width: 100%;
+    max-width: 750px;
   }
   
   /* 3×3ブロック境界線のみ太くする */
@@ -102,16 +112,18 @@
   /* モバイル対応 */
   @media (max-width: 640px) {
     .sudoku-grid {
-      @apply max-w-sm;
+      @apply max-w-lg;
       padding: 0; /* モバイルでもパディングなし */
+      max-width: 500px;
     }
     
     .sudoku-cell {
-      @apply w-full h-full text-lg;
+      @apply w-full h-full text-2xl;
       /* モバイルでも隙間なし */
       border: 0.5px solid #9ca3af;
       margin: 0;
       padding: 0;
+      min-height: 55px;
     }
     
     /* モバイル用の3×3ブロック境界線 */
@@ -128,15 +140,16 @@
     }
     
     .number-button {
-      @apply w-10 h-10 text-lg;
+      @apply w-14 h-14 text-xl;
     }
   }
   
   /* タブレット対応 */
   @media (min-width: 641px) and (max-width: 1024px) {
     .sudoku-grid {
-      @apply max-w-md;
+      @apply max-w-2xl;
       padding: 0; /* タブレットでもパディングなし */
+      max-width: 600px;
     }
     
     .sudoku-cell {
@@ -144,6 +157,8 @@
       border: 0.5px solid #9ca3af;
       margin: 0;
       padding: 0;
+      min-height: 65px;
+      @apply text-3xl;
     }
     
     /* タブレット用の3×3ブロック境界線 */
@@ -161,8 +176,8 @@
   }
   
   .number-button {
-    @apply w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-400 to-blue-600 text-white
-           text-xl sm:text-2xl font-bold rounded-xl shadow-lg transform transition-all duration-150
+    @apply w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-400 to-blue-600 text-white
+           text-2xl sm:text-3xl font-bold rounded-xl shadow-lg transform transition-all duration-150
            hover:scale-110 hover:shadow-xl active:scale-95
            focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2;
   }

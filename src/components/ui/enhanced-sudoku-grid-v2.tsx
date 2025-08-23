@@ -61,18 +61,20 @@ export function EnhancedSudokuGridV2() {
               onClick={() => selectCell({ row: rowIndex, col: colIndex })}
               className={`
                 sudoku-cell relative flex items-center justify-center transition-all
-                ${isSelected ? 'selected ring-2 ring-blue-500 bg-blue-100 scale-105 z-10' : ''}
-                ${isPrefilled ? 'prefilled bg-gray-50' : ''}
+                ${value !== 0 && !isSelected && !hasError ? 'bg-gray-100' : ''}
+                ${isSelected ? 'selected ring-2 ring-blue-500 bg-blue-100 z-10' : ''}
+                ${isPrefilled ? 'prefilled bg-gray-200' : ''}
                 ${hasError ? 'bg-red-100 ring-2 ring-red-400' : ''}
-                ${isRelated && !isSelected ? 'bg-blue-50' : ''}
+                ${isRelated && !isSelected && value === 0 ? 'bg-blue-50' : ''}
                 ${isSameNumber ? 'bg-yellow-100' : ''}
-                hover:bg-blue-50 hover:scale-105
+                ${value === 0 && !isSelected ? 'bg-white' : ''}
+                hover:bg-blue-50
               `}
               disabled={gameStatus !== 'playing' || isPrefilled}
             >
               {value !== 0 && (
                 <span className={`
-                  text-xl font-bold transition-colors
+                  text-3xl sm:text-4xl font-bold transition-colors
                   ${hasError ? 'text-red-600 animate-pulse' : ''}
                   ${isPrefilled && !hasError ? 'text-indigo-800' : ''}
                   ${!isPrefilled && !hasError ? 'text-blue-700' : ''}
