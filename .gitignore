@@ -10,3 +10,6 @@ scripts/.path_update_backup_*
 scripts/*.bak
 .backup/
 pm/logs/
+.next/
+dist/
+.env*
