@@ -3,6 +3,15 @@
 import { useSudokuStore } from '@/store/sudoku-store'
 import { validateGrid } from '@/lib/sudoku'
 
+/**
+ * 拡張数独グリッドコンポーネント v2
+ * 
+ * グリッドラインスタイルの数独パネルを提供します：
+ * - 各セルは細い境界線（1px）で区切られます
+ * - 3×3ブロックの境界は太い線（3px）で強調表示されます
+ * - レスポンシブデザインに対応（モバイル・タブレット・デスクトップ）
+ * - セルの選択、エラー表示、同一数字ハイライトなどの機能を含みます
+ */
 export function EnhancedSudokuGridV2() {
   const { currentGrid, selectedCell, selectCell, gameStatus, initialGrid } = useSudokuStore()
   
@@ -57,8 +66,6 @@ export function EnhancedSudokuGridV2() {
                 ${hasError ? 'bg-red-100 ring-2 ring-red-400' : ''}
                 ${isRelated && !isSelected ? 'bg-blue-50' : ''}
                 ${isSameNumber ? 'bg-yellow-100' : ''}
-                ${(colIndex === 2 || colIndex === 5) ? 'mr-2' : ''}
-                ${(rowIndex === 2 || rowIndex === 5) ? 'mb-2' : ''}
                 hover:bg-blue-50 hover:scale-105
               `}
               disabled={gameStatus !== 'playing' || isPrefilled}

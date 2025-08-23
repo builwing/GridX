@@ -160,7 +160,7 @@ class MonitoringServer {
         this.watchers.push(historyWatcher);
 
         // ログファイルの監視
-        const logWatcher = chokidar.watch('pm/logs/*.json', {
+        const logWatcher = chokidar.watch('.claude/.claude/pm/logs/*.json', {
             persistent: true,
             ignoreInitial: true
         });
@@ -320,7 +320,7 @@ class MonitoringServer {
     async collectRecentTasks() {
         try {
             // 最新のPMログから取得
-            const logsDir = 'pm/logs';
+            const logsDir = '.claude/.claude/pm/logs';
             const files = await fs.readdir(logsDir);
             const jsonFiles = files.filter(f => f.endsWith('.json')).sort().reverse();
             

@@ -227,8 +227,8 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # ログに記録
-LOG_FILE="pm/logs/$(date +%Y%m%d).json"
-mkdir -p pm/logs
+LOG_FILE=".claude/.claude/pm/logs/$(date +%Y%m%d).json"
+mkdir -p .claude/.claude/pm/logs
 echo "$RESULT" >> "$LOG_FILE"
 
 # 判定結果に基づくアクション

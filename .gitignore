@@ -1,1 +1,12 @@
 node_modules
+
+# Agentix
+.agentix_backup_*
+.requirements_hash
+.requirements_backup
+.requirements_changes.log
+scripts/.deprecated_*
+scripts/.path_update_backup_*
+scripts/*.bak
+.backup/
+pm/logs/

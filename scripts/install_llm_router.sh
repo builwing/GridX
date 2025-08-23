@@ -5,9 +5,9 @@ set -euo pipefail
 echo "🤖 LLM統合ルーターをセットアップ中..."
 
 # 1. Node.js プロジェクトの初期化（pm/router/）
-mkdir -p pm/router
+mkdir -p .claude/pm/router
 
-cat > pm/router/package.json << 'PACKAGE_EOF'
+cat > .claude/pm/router/package.json << 'PACKAGE_EOF'
 {
   "name": "subagent-router",
   "version": "1.0.0",
@@ -33,7 +33,7 @@ cat > pm/router/package.json << 'PACKAGE_EOF'
 PACKAGE_EOF
 
 # 2. メインルーター実装（TypeScript風のJavaScript）
-cat > pm/router/router.js << 'ROUTER_EOF'
+cat > .claude/pm/router/router.js << 'ROUTER_EOF'
 #!/usr/bin/env node
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -472,7 +472,7 @@ export default SubAgentRouter;
 ROUTER_EOF
 
 # 3. 環境設定ファイル
-cat > pm/router/.env.example << 'ENV_EOF'
+cat > .claude/pm/router/.env.example << 'ENV_EOF'
 # LLMプロバイダー設定
 # 選択肢: mock, anthropic, openai
 LLM_PROVIDER=mock
@@ -489,7 +489,7 @@ LOG_LEVEL=info
 ENV_EOF
 
 # 4. テストスクリプト
-cat > pm/router/test-router.js << 'TEST_EOF'
+cat > .claude/pm/router/test-router.js << 'TEST_EOF'
 #!/usr/bin/env node
 import SubAgentRouter from './router.js';
 import chalk from 'chalk';
@@ -594,38 +594,38 @@ if ! command -v node &> /dev/null; then
 fi
 
 # LLMルーターが初期化されているか確認
-if [[ ! -f "pm/router/node_modules/.package-lock.json" ]]; then
+if [[ ! -f ".claude/pm/router/node_modules/.package-lock.json" ]]; then
     echo "📦 初回セットアップ: 依存関係をインストール中..."
-    cd pm/router
+    cd .claude/pm/router
     npm install
     cd ../..
 fi
 
 # 環境設定
-if [[ ! -f "pm/router/.env" ]]; then
-    cp pm/router/.env.example pm/router/.env
-    echo "📝 pm/router/.env を作成しました（必要に応じて編集してください）"
+if [[ ! -f ".claude/pm/router/.env" ]]; then
+    cp .claude/pm/router/.env.example .claude/pm/router/.env
+    echo "📝 .claude/pm/router/.env を作成しました（必要に応じて編集してください）"
 fi
 
 # LLMルーター実行
-cd pm/router
+cd .claude/pm/router
 node router.js "$MESSAGE"
 DISPATCH_V2_EOF
 
 chmod +x scripts/pm_dispatch_v2.sh
-chmod +x pm/router/router.js
-chmod +x pm/router/test-router.js
+chmod +x .claude/pm/router/router.js
+chmod +x .claude/pm/router/test-router.js
 
 echo "✅ LLM統合ルーターのセットアップが完了しました！"
 echo ""
 echo "📝 作成されたファイル:"
-echo "  - pm/router/router.js       : メインルーター"
-echo "  - pm/router/test-router.js  : テストスクリプト"
-echo "  - pm/router/.env.example    : 環境設定テンプレート"
+echo "  - .claude/pm/router/router.js       : メインルーター"
+echo "  - .claude/pm/router/test-router.js  : テストスクリプト"
+echo "  - .claude/pm/router/.env.example    : 環境設定テンプレート"
 echo "  - scripts/pm_dispatch_v2.sh : 新しい振り分けスクリプト"
 echo ""
 echo "🚀 使い方:"
-echo "  1. cd pm/router && npm install"
+echo "  1. cd .claude/pm/router && npm install"
 echo "  2. cp .env.example .env （必要に応じて編集）"
 echo "  3. npm test （テスト実行）"
 echo "  4. cd ../.. && ./scripts/pm_dispatch_v2.sh \"タスク内容\""

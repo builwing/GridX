@@ -20,24 +20,31 @@
 
 @layer components {
   .sudoku-cell {
-    @apply w-12 h-12 sm:w-14 sm:h-14 border-2 border-gray-300 bg-white text-center text-xl sm:text-2xl font-bold
-           transition-all duration-200 ease-in-out transform
-           focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
-           hover:scale-105 hover:shadow-md hover:bg-blue-50 select-none cursor-pointer
-           rounded-md shadow-sm;
+    @apply w-full h-full bg-white text-center text-xl sm:text-2xl font-bold
+           transition-all duration-200 ease-in-out
+           focus:outline-none focus:ring-2 focus:ring-blue-400
+           hover:bg-blue-50 select-none cursor-pointer;
+    /* シンプルな格子線スタイル - 隙間なし */
+    border: 0.5px solid #9ca3af;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
   
   .sudoku-cell.selected {
-    @apply bg-blue-100 ring-2 ring-blue-400 scale-105 shadow-lg;
+    @apply bg-blue-100 ring-2 ring-blue-400;
+    /* 選択されたセルでも境界線を維持 */
+    z-index: 10;
+    position: relative;
   }
   
   .sudoku-cell.prefilled {
-    @apply bg-gradient-to-br from-indigo-50 to-purple-50 text-indigo-800 cursor-default
-           font-black border-indigo-200 shadow-inner;
+    @apply bg-gray-100 text-black cursor-default font-black;
   }
   
   .sudoku-cell.error {
-    @apply bg-gradient-to-br from-red-50 to-pink-50 text-red-700 ring-2 ring-red-300
+    @apply bg-red-50 text-red-700 ring-2 ring-red-300
            border-red-300 animate-shake;
   }
   
@@ -49,42 +56,66 @@
   }
   
   .sudoku-cell.correct {
-    @apply bg-gradient-to-br from-green-50 to-emerald-50 text-green-700 ring-2 ring-green-300
+    @apply bg-green-50 text-green-700 ring-2 ring-green-300
            border-green-300 animate-bounce-gentle;
   }
   
   .sudoku-cell.hint {
-    @apply bg-gradient-to-br from-yellow-50 to-amber-50 text-amber-700 ring-2 ring-yellow-300
+    @apply bg-yellow-50 text-amber-700 ring-2 ring-yellow-300
            border-yellow-300 animate-pulse-gentle;
   }
   
   .sudoku-grid {
-    @apply grid grid-cols-9 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl shadow-2xl p-5
-           border-4 border-slate-400 max-w-xl mx-auto;
+    @apply max-w-xl mx-auto;
+    /* シンプルな9×9グリッド */
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
     aspect-ratio: 1;
-    gap: 2px;
+    padding: 0;
+    gap: 0;
+    /* 外枠の境界線（角丸なし） */
+    border: 2px solid #374151;
+    border-radius: 0;
+    background-color: #ffffff;
   }
   
-  /* 3×3ブロック間の間隔を広げる */
-  .sudoku-cell:nth-child(3n) {
-    margin-right: 8px;
+  /* 3×3ブロック境界線のみ太くする */
+  /* 3列目と6列目の右境界を太くする */
+  .sudoku-cell:nth-child(9n+3),
+  .sudoku-cell:nth-child(9n+6) {
+    border-right: 2px solid #374151;
   }
-  .sudoku-cell:nth-child(9n) {
-    margin-right: 0;
-  }
+  
+  /* 27番目と54番目の後の行（3行目と6行目の最後）に太い下境界を追加 */
   .sudoku-cell:nth-child(n+19):nth-child(-n+27),
   .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
-    margin-bottom: 8px;
+    border-bottom: 2px solid #374151;
   }
+  
   
   /* モバイル対応 */
   @media (max-width: 640px) {
     .sudoku-grid {
-      @apply max-w-sm p-3 gap-1;
+      @apply max-w-sm;
+      padding: 0; /* モバイルでもパディングなし */
     }
     
     .sudoku-cell {
       @apply w-9 h-9 text-lg;
+      /* モバイルでは境界線を少し細くする */
+      border: 0.5px solid #d1d5db;
+    }
+    
+    /* モバイル用の3×3ブロック境界線 */
+    .sudoku-cell:nth-child(9n+3),
+    .sudoku-cell:nth-child(9n+6) {
+      border-right: 2px solid #374151;
+    }
+    
+    .sudoku-cell:nth-child(n+19):nth-child(-n+27),
+    .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+      border-bottom: 2px solid #374151;
     }
     
     .number-button {
@@ -96,6 +127,23 @@
   @media (min-width: 641px) and (max-width: 1024px) {
     .sudoku-grid {
       @apply max-w-md;
+      padding: 0; /* タブレットでもパディングなし */
+    }
+    
+    .sudoku-cell {
+      /* タブレット用の境界線調整 */
+      border: 0.8px solid #d1d5db;
+    }
+    
+    /* タブレット用の3×3ブロック境界線 */
+    .sudoku-cell:nth-child(9n+3),
+    .sudoku-cell:nth-child(9n+6) {
+      border-right: 2px solid #374151;
+    }
+    
+    .sudoku-cell:nth-child(n+19):nth-child(-n+27),
+    .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+      border-bottom: 2px solid #374151;
     }
   }
   
