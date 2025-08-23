@@ -2,6 +2,7 @@ import { EnhancedSudokuGridV2 } from '@/components/ui/enhanced-sudoku-grid-v2'
 import { EnhancedGameControls } from '@/components/ui/enhanced-game-controls'
 import { NumberPad } from '@/components/ui/number-pad'
 import { GameStarter } from '@/components/ui/game-starter'
+import { GameStats } from '@/components/ui/game-stats'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -13,8 +14,37 @@ export default function HomePage() {
   return (
     <div className="min-h-screen py-4 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-7xl">
+        {/* メインゲームエリア - 3:2の割合でレイアウト */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
+          {/* 左側 - 数独グリッド (3/5 = 60%) */}
+          <div className="lg:col-span-3 flex flex-col justify-start">
+            <div className="w-full">
+              <GameStarter />
+              <EnhancedSudokuGridV2 />
+              
+              {/* ゲーム統計 - パズルの下に配置 */}
+              <div className="mt-6">
+                <GameStats />
+              </div>
+            </div>
+          </div>
+          
+          {/* 右側 - 数字入力パッドとゲームコントロール (2/5 = 40%) */}
+          <div className="lg:col-span-2 flex flex-col justify-start">
+            <div className="w-full max-w-md mx-auto">
+              {/* 数字入力パッド */}
+              <NumberPad />
+              
+              {/* ゲーム統計とコントロール - 数字入力パッドの下に配置 */}
+              <div className="mt-6">
+                <EnhancedGameControls />
+              </div>
+            </div>
+          </div>
+        </div>
+        
         {/* 遊び方ガイド */}
-        <div className="text-center mb-8">
+        <div className="text-center mt-8 mb-8">
           <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-2 border-blue-200 rounded-2xl p-6 inline-block shadow-lg">
             <div className="flex items-center justify-center mb-3">
               <div className="text-2xl mr-2">🎯</div>
@@ -28,33 +58,6 @@ export default function HomePage() {
               <br />
               縦・横・3×3のブロックに同じ数字が入らないようにパズルを完成させましょう！
             </p>
-          </div>
-        </div>
-        
-        {/* メインゲームエリア */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 lg:gap-8">
-          {/* 左サイドバー - ゲーム統計とコントロール */}
-          <div className="xl:col-span-3 order-2 xl:order-1">
-            <div className="sticky top-4">
-              <EnhancedGameControls />
-            </div>
-          </div>
-          
-          {/* 中央 - 数独グリッド */}
-          <div className="xl:col-span-6 order-1 xl:order-2">
-            <div className="flex justify-center">
-              <div className="w-full max-w-2xl">
-                <GameStarter />
-                <EnhancedSudokuGridV2 />
-              </div>
-            </div>
-          </div>
-          
-          {/* 右サイドバー - 数字入力パッド */}
-          <div className="xl:col-span-3 order-3">
-            <div className="sticky top-4">
-              <NumberPad />
-            </div>
           </div>
         </div>
         

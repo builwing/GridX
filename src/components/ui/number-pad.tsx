@@ -113,7 +113,7 @@ export function NumberPad() {
       </div>
       
       {/* 数字ボタン 1-9 */}
-      <div className="grid grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-3 gap-4 mb-6">
         {Array.from({ length: 9 }, (_, i) => i + 1).map((num) => (
           <motion.button
             key={num}

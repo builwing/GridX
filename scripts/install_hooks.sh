@@ -269,14 +269,14 @@ jobs:
           echo "🤖 Systemプロンプトを検証中..."
           
           # PMプロンプトの確認
-          if [[ ! -f "pm/prompts/pm_system.txt" ]]; then
+          if [[ ! -f ".claude/.claude/pm/prompts/pm_system.txt" ]]; then
             echo "❌ PM system prompt not found"
             exit 1
           fi
           
           # 各Agentプロンプトの確認
           for agent in api next expo; do
-            PROMPT="pm/prompts/subagent_system/$agent.txt"
+            PROMPT=".claude/.claude/pm/prompts/subagent_system/$agent.txt"
             if [[ ! -f "$PROMPT" ]]; then
               echo "⚠️  Warning: $PROMPT not found"
             fi
@@ -319,8 +319,8 @@ GITHUB_EOF
 cat >> .gitignore << 'GITIGNORE_EOF'
 
 # SubAgent System
-pm/logs/*.json
-pm/logs/*.log
+.claude/.claude/pm/logs/*.json
+.claude/.claude/pm/logs/*.log
 .agent-cache/
 *.agent.tmp
 
@@ -344,7 +344,7 @@ echo "セットアップ完了内容:"
 echo ""
 echo "📁 ディレクトリ構造:"
 echo "  - docs/agents/*    : 各Agent用ドキュメント"
-echo "  - pm/*            : PM設定とプロンプト"
+echo "  - .claude/pm/*            : PM設定とプロンプト"
 echo "  - scripts/*       : 管理スクリプト"
 echo ""
 echo "🔧 Git Hooks:"

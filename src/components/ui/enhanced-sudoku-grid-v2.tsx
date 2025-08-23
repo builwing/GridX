@@ -3,6 +3,15 @@
 import { useSudokuStore } from '@/store/sudoku-store'
 import { validateGrid } from '@/lib/sudoku'
 
+/**
+ * 拡張数独グリッドコンポーネント v2
+ * 
+ * グリッドラインスタイルの数独パネルを提供します：
+ * - 各セルは細い境界線（1px）で区切られます
+ * - 3×3ブロックの境界は太い線（3px）で強調表示されます
+ * - レスポンシブデザインに対応（モバイル・タブレット・デスクトップ）
+ * - セルの選択、エラー表示、同一数字ハイライトなどの機能を含みます
+ */
 export function EnhancedSudokuGridV2() {
   const { currentGrid, selectedCell, selectCell, gameStatus, initialGrid } = useSudokuStore()
   
@@ -52,20 +61,20 @@ export function EnhancedSudokuGridV2() {
               onClick={() => selectCell({ row: rowIndex, col: colIndex })}
               className={`
                 sudoku-cell relative flex items-center justify-center transition-all
-                ${isSelected ? 'selected ring-2 ring-blue-500 bg-blue-100 scale-105 z-10' : ''}
-                ${isPrefilled ? 'prefilled bg-gray-50' : ''}
+                ${value !== 0 && !isSelected && !hasError ? 'bg-gray-100' : ''}
+                ${isSelected ? 'selected ring-2 ring-blue-500 bg-blue-100 z-10' : ''}
+                ${isPrefilled ? 'prefilled bg-gray-200' : ''}
                 ${hasError ? 'bg-red-100 ring-2 ring-red-400' : ''}
-                ${isRelated && !isSelected ? 'bg-blue-50' : ''}
+                ${isRelated && !isSelected && value === 0 ? 'bg-blue-50' : ''}
                 ${isSameNumber ? 'bg-yellow-100' : ''}
-                ${(colIndex === 2 || colIndex === 5) ? 'mr-2' : ''}
-                ${(rowIndex === 2 || rowIndex === 5) ? 'mb-2' : ''}
-                hover:bg-blue-50 hover:scale-105
+                ${value === 0 && !isSelected ? 'bg-white' : ''}
+                hover:bg-blue-50
               `}
               disabled={gameStatus !== 'playing' || isPrefilled}
             >
               {value !== 0 && (
                 <span className={`
-                  text-xl font-bold transition-colors
+                  text-3xl sm:text-4xl font-bold transition-colors
                   ${hasError ? 'text-red-600 animate-pulse' : ''}
                   ${isPrefilled && !hasError ? 'text-indigo-800' : ''}
                   ${!isPrefilled && !hasError ? 'text-blue-700' : ''}

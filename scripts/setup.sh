@@ -14,7 +14,7 @@ mkdir -p .claude/agents
 mkdir -p docs/agents/{api,logic,next,expo,infra,qa,uiux,security,docs}
 
 # pm (プロジェクトマネージャー) ディレクトリ
-mkdir -p pm/{prompts/subagent_system,logs}
+mkdir -p .claude/pm/{prompts/subagent_system,logs}
 
 # scripts ディレクトリ
 mkdir -p scripts
@@ -36,7 +36,7 @@ fi
 echo "📝 プロジェクト設定ファイルを生成中..."
 
 # PM registry.json - Agent登録情報
-cat > "pm/registry.json" << 'EOF'
+cat > ".claude/pm/registry.json" << 'EOF'
 {
   "version": "1.0.0",
   "agents": [

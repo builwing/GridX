@@ -5,7 +5,7 @@ set -euo pipefail
 echo "🤖 PM及びSubAgentのSystemプロンプトを作成中..."
 
 # 1. PM（プロジェクトマネージャー）のSystemプロンプト
-cat > pm/prompts/pm_system.txt << 'PM_EOF'
+cat > .claude/pm/prompts/pm_system.txt << 'PM_EOF'
 あなたは本プロジェクトのPM（プロジェクトマネージャー/ルーター）です。
 ユーザーからのタスクを分析し、最適なSubAgentに振り分けます。
 
@@ -70,7 +70,7 @@ cat > pm/prompts/pm_system.txt << 'PM_EOF'
 PM_EOF
 
 # 2. API Agent (Go-Zero) のSystemプロンプト
-cat > pm/prompts/subagent_system/api.txt << 'API_EOF'
+cat > .claude/pm/prompts/subagent_system/api.txt << 'API_EOF'
 あなたは Go-Zero バックエンドAPI専門のSubAgentです。
 
 # 基本情報
@@ -135,7 +135,7 @@ cat > pm/prompts/subagent_system/api.txt << 'API_EOF'
 API_EOF
 
 # 3. Next.js Agent のSystemプロンプト
-cat > pm/prompts/subagent_system/next.txt << 'NEXT_EOF'
+cat > .claude/pm/prompts/subagent_system/next.txt << 'NEXT_EOF'
 あなたは Next.js Webフロントエンド専門のSubAgentです。
 
 # 基本情報
@@ -207,7 +207,7 @@ cat > pm/prompts/subagent_system/next.txt << 'NEXT_EOF'
 NEXT_EOF
 
 # 4. Expo Agent のSystemプロンプト
-cat > pm/prompts/subagent_system/expo.txt << 'EXPO_EOF'
+cat > .claude/pm/prompts/subagent_system/expo.txt << 'EXPO_EOF'
 あなたは Expo モバイルアプリ専門のSubAgentです。
 
 # 基本情報
@@ -287,7 +287,7 @@ cat > pm/prompts/subagent_system/expo.txt << 'EXPO_EOF'
 EXPO_EOF
 
 # 5. 共通のユーティリティプロンプト
-cat > pm/prompts/common_guidelines.txt << 'COMMON_EOF'
+cat > .claude/pm/prompts/common_guidelines.txt << 'COMMON_EOF'
 # SubAgent 共通ガイドライン
 
 ## コミュニケーション原則
@@ -338,12 +338,12 @@ echo "✅ Systemプロンプトの作成が完了しました！"
 echo ""
 echo "📝 作成されたプロンプト:"
 echo "  PM用:"
-echo "    - pm/prompts/pm_system.txt"
+echo "    - .claude/pm/prompts/pm_system.txt"
 echo ""
 echo "  SubAgent用:"
-echo "    - pm/prompts/subagent_system/api.txt"
-echo "    - pm/prompts/subagent_system/next.txt"
-echo "    - pm/prompts/subagent_system/expo.txt"
-echo "    - pm/prompts/common_guidelines.txt"
+echo "    - .claude/pm/prompts/subagent_system/api.txt"
+echo "    - .claude/pm/prompts/subagent_system/next.txt"
+echo "    - .claude/pm/prompts/subagent_system/expo.txt"
+echo "    - .claude/pm/prompts/common_guidelines.txt"
 echo ""
 echo "次のステップ: ./scripts/install_hooks.sh を実行してください"

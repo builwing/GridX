@@ -627,8 +627,8 @@ class HistoryLoggerServer {
         }
         
         // レポートを保存
-        const reportPath = `pm/logs/report_${period}_${new Date().toISOString().split('T')[0]}.md`;
-        await fs.mkdir('pm/logs', { recursive: true });
+        const reportPath = `.claude/pm/logs/report_${period}_${new Date().toISOString().split('T')[0]}.md`;
+        await fs.mkdir('.claude/.claude/pm/logs', { recursive: true });
         await fs.writeFile(reportPath, report.join('\n'));
         
         return {

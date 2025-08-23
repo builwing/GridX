@@ -29,19 +29,6 @@ export function EnhancedGameControls() {
   const difficulty = useSudokuStore(state => state.difficulty)
   const togglePause = useSudokuStore(state => state.togglePause)
   const resetGame = useSudokuStore(state => state.resetGame)
-  const updateElapsedTime = useSudokuStore(state => state.updateElapsedTime)
-  
-  // タイマーの更新
-  useEffect(() => {
-    if (gameStatus !== 'playing') return
-    
-    const interval = setInterval(() => {
-      updateElapsedTime()
-    }, 1000)
-    
-    return () => clearInterval(interval)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameStatus])
   
   const handleTogglePause = () => {
     if (gameStatus === 'playing' || gameStatus === 'paused') {
@@ -84,67 +71,6 @@ export function EnhancedGameControls() {
       initial="hidden"
       animate="visible"
     >
-      {/* ゲーム統計 */}
-      <motion.div 
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4"
-        variants={itemVariants}
-      >
-        <motion.div 
-          className="stat-card"
-          variants={statCardVariants}
-          whileHover="hover"
-        >
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full">
-              <Clock className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-600">時間</p>
-              <p className="text-2xl font-black font-mono text-blue-700">
-                {formatTime(elapsedTime)}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-        
-        <motion.div 
-          className="stat-card"
-          variants={statCardVariants}
-          whileHover="hover"
-        >
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full">
-              <Target className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-600">手数</p>
-              <p className="text-2xl font-black font-mono text-green-700">
-                {moveCount}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-        
-        <motion.div 
-          className="stat-card"
-          variants={statCardVariants}
-          whileHover="hover"
-        >
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-gradient-to-r from-orange-400 to-red-500 rounded-full">
-              <AlertTriangle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-600">間違い</p>
-              <p className="text-2xl font-black font-mono text-orange-700">
-                {mistakes}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-      
-      
       {/* ゲームコントロール */}
       <motion.div variants={itemVariants}>
         <div className="bg-white rounded-2xl p-6 shadow-xl border-2 border-gray-200">
