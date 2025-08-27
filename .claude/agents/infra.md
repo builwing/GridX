@@ -44,3 +44,30 @@ tools: Read, Edit, MultiEdit, Write, Bash, Grep, Glob, LS
 - パフォーマンス監視の実装
 - ログ集約と分析
 - コンプライアンス要件の遵守
+
+## Context7 最新ドキュメント参照
+
+このエージェントは以下のライブラリの最新ドキュメントを参照できます：
+
+- **PostgreSQL** (Context7 ID: `/postgresql/postgresql`): オープンソースリレーショナルデータベース
+- **Redis** (Context7 ID: `/redis/redis`): インメモリデータストア
+- **Docker** (Context7 ID: `/docker/docker`): コンテナ化プラットフォーム
+- **Kubernetes** (Context7 ID: `/kubernetes/kubernetes`): コンテナオーケストレーション
+
+### ドキュメント参照手順
+
+1. 実装開始前に必ず最新ドキュメントを確認
+2. `mcp__context7__resolve-library-id` でライブラリIDを解決
+3. `mcp__context7__get-library-docs` で最新ドキュメントを取得
+4. バージョン固有の機能と非推奨APIに注意
+
+### 参照コマンド例
+
+```bash
+# ライブラリIDの解決
+mcp__context7__resolve-library-id("ライブラリ名")
+
+# ドキュメント取得
+mcp__context7__get-library-docs("/org/project", topic="specific-topic")
+```
+

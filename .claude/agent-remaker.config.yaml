@@ -1,0 +1,26 @@
+# AgentRemaker Configuration
+project:
+  name: GridX
+  path: ../GridX
+  integrated_at: 2025-08-27T08:23:22Z
+
+agents:
+  - name: pm
+    version: 2.0.0
+  - name: api
+    version: 2.0.0
+    customization:
+      language: go
+      framework: go-zero
+  - name: next
+    version: 3.0.0
+  - name: qa
+    version: 1.5.0
+  - name: security
+    version: 1.2.0
+
+sync:
+  mode: symlink
+  auto_update: true
+  
+generated_by: AgentRemaker v2.0.0

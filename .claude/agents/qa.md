@@ -44,3 +44,28 @@ tools: Read, Edit, MultiEdit, Write, Bash, Grep, Glob
 - 継続的なテスト実行
 - テスト結果の可視化
 - 本番環境に近い条件でテスト
+
+## Context7 最新ドキュメント参照
+
+このエージェントは以下のライブラリの最新ドキュメントを参照できます：
+
+- **Jest** (Context7 ID: `/facebook/jest`): JavaScriptテストフレームワーク
+- **Playwright** (Context7 ID: `/microsoft/playwright`): E2Eテストフレームワーク
+
+### ドキュメント参照手順
+
+1. 実装開始前に必ず最新ドキュメントを確認
+2. `mcp__context7__resolve-library-id` でライブラリIDを解決
+3. `mcp__context7__get-library-docs` で最新ドキュメントを取得
+4. バージョン固有の機能と非推奨APIに注意
+
+### 参照コマンド例
+
+```bash
+# ライブラリIDの解決
+mcp__context7__resolve-library-id("ライブラリ名")
+
+# ドキュメント取得
+mcp__context7__get-library-docs("/org/project", topic="specific-topic")
+```
+

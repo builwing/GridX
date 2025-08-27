@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-08-27T17:25:06.728966",
+  "task": "タスクの説明",
+  "task_info": {
+    "primary_agent": "general",
+    "requires_pm": false,
+    "related_agents": [
+      "general"
+    ],
+    "confidence_score": 0
+  }
+}

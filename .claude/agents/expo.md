@@ -44,3 +44,29 @@ tools: Read, Edit, MultiEdit, Write, Bash, Grep, Glob
 - バッテリー消費の最適化
 - ネットワーク使用量の最小化
 - OTA アップデートの戦略
+
+## Context7 最新ドキュメント参照
+
+このエージェントは以下のライブラリの最新ドキュメントを参照できます：
+
+- **Expo** (Context7 ID: `/expo/expo`): React Native開発プラットフォーム
+- **React** (Context7 ID: `/facebook/react`): UIライブラリ
+- **TypeScript** (Context7 ID: `/microsoft/TypeScript`): JavaScript型付き拡張
+
+### ドキュメント参照手順
+
+1. 実装開始前に必ず最新ドキュメントを確認
+2. `mcp__context7__resolve-library-id` でライブラリIDを解決
+3. `mcp__context7__get-library-docs` で最新ドキュメントを取得
+4. バージョン固有の機能と非推奨APIに注意
+
+### 参照コマンド例
+
+```bash
+# ライブラリIDの解決
+mcp__context7__resolve-library-id("ライブラリ名")
+
+# ドキュメント取得
+mcp__context7__get-library-docs("/org/project", topic="specific-topic")
+```
+
