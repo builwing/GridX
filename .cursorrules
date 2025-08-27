@@ -1,0 +1,9 @@
+{
+  "commit": {
+    // コミットメッセージの生成ルール
+    "instructions": "コミットメッセージは常に日本語で生成してください。\
+短く簡潔に、目的が分かるように記述してください。\
+可能であれば Conventional Commits (feat, fix, docs, style, refactor, test, chore) の形式を使い、冒頭は日本語で。\
+例: 'feat: ログイン機能を追加', 'fix: バリデーションのバグを修正'"
+  }
+}
